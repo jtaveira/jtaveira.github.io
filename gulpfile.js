@@ -63,7 +63,7 @@ gulp.task('prepend-static-url', ['concat', 'styles'], function() {
 gulp.task('webserver', function() {
   gulp.src(['./dist']).pipe($.webserver({
     port: 9119,
-    livereload: false,
+    livereload: true,
   }))
 })
 
