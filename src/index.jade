@@ -1,0 +1,15 @@
+include /includes/mixins
+
+doctype html
+
+html(ng-app="app")
+
+  head
+    include /includes/styles
+    title iLearnTest
+
+  body(ng-cloak ng-controller="RootController")
+
+    h1 {{test}}
+
+    include /includes/scripts

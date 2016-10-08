@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -e
+set -a
+
+if [ $# -eq 1 ]; then ARG=$1; else ARG="${ENV:="dev"}"; fi
+
+if [ "$ARG" == "dev" ]; then
+  gulp clean
+  gulp build:dev
+  gulp
+fi
