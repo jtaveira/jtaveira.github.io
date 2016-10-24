@@ -10,6 +10,28 @@ html(ng-app="app")
 
   body(ng-cloak ng-controller="RootController")
 
-    h1 {{test}} caca
+    h1 {{at.key}} - {{at.name}}
+
+    div(ng-if="at.root==undefined") 
+      h1 Room points {{ calcUserRoomTreePoints(at.key) }} / {{ calcPotentialRoomTreePoints(at.key) }} points
+      h1 User status {{ user.calcScore() }} points
+
+    include /includes/learningRoom
+    include /includes/challengeRoom
+
+    div(ng-repeat="roomKey in at.links") 
+      button(ng-click="go(roomKey)")
+        | {{roomKey}} - {{ calcUserRoomTreePoints(roomKey) }} / {{ calcPotentialRoomTreePoints(roomKey) }} points
+
+    button(ng-if="at.parent != undefined" ng-click="go(at.parent)")
+      | Return to {{at.parent}}
+
+    button(ng-if="at.previous != undefined" ng-click="go(at.previous)")
+      | Go to {{at.previous}}
+
+    button(ng-if="at.next != undefined" ng-click="go(at.next)")
+      | Go to {{at.next}}
+
+    
 
     include /includes/scripts
