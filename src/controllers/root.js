@@ -214,12 +214,12 @@ angular.module('app')
     }
   }
 
-  function getRoom(key){
+  $scope.getRoom = function(key){
     return roomMap[key]
   }
 
   $scope.go = function(roomKey){
-    $scope.at = getRoom(roomKey)
+    $scope.at = $scope.getRoom(roomKey)
   }
 
 }])
