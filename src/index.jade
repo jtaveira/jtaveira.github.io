@@ -9,58 +9,77 @@ html(ng-app="app")
     title iLearnTest
 
   body
+
     .app(ng-cloak ng-controller="RootController")
+
+      md-sidenav(
+        class="md-sidenav-left" 
+        md-component-id="left"
+        md-whiteframe="4"
+      )
+
+        h4 Table of contents
+        .map-section
+          p(ng-click="$root.at=rootRoom")
+            b Home
+
+        .map-section(ng-repeat="room in roomMap[roomMap[$root.at.parent].parent].linkedRooms")
+          p(ng-click="$root.at=room") 
+            b {{room.key}}
+            | {{room.name}}
+          game-tree(ng-if="room.linkedRooms.length")
 
       .wrapper        
         span.top-level 
-          | {{at.key}}. {{at.name}}
-        
+          | {{$root.at.key}}. {{$root.at.name}}
+
         span.user-status(
-          ng-if="at.root==undefined"
+          ng-if="$root.at.root==undefined"
         )  
           | User status {{ user.calcScore() }} points
-        
+
+        span.user-status(
+          ng-if="$root.at.root==true"
+        )  
+          md-button(
+            ng-click="toggleLeft()" 
+            class="md-raised"
+          )
+            | Show mini-map 
+
       .wrapper(
-        ng-if="at.root==undefined"
+        ng-if="$root.at.root==undefined"
       )  
-        .wrapper
+        .wrapper(layout="row" layout-align="space-between center" flex="grow")
           span.room-status
-            | Room points {{ calcUserRoomTreePoints(at.key) }} / {{ calcPotentialRoomTreePoints(at.key) }} points
+            | Room points {{ calcUserRoomTreePoints($root.at.key) }} / {{ calcPotentialRoomTreePoints($root.at.key) }} points
+
+          md-button(
+            ng-click="toggleLeft()" 
+            class="md-raised"
+          )
+            | Show mini-map  
       
 
       include /includes/learningRoom
       include /includes/challengeRoom
-      section.mid-nav(
-        layout="row" 
-        layout-align="space-between center"         
-      )
-        md-button(
-          ng-repeat="roomKey in at.links" 
-          ng-click="go(roomKey)"
-          color-this="background-color"
-          data-color="roomKey"
-        )
-          p &nbsp;
-          p.title {{roomKey}}
-          p {{ calcUserRoomTreePoints(roomKey) }} / {{ calcPotentialRoomTreePoints(roomKey) }}
-          md-tooltip
-            | {{getRoom(roomKey).key}}. {{getRoom(roomKey).name}} 
+      include /includes/lobbyRoom   
 
-      section.bottom-nav(layout="row" layout-align="space-between center")
+      section.bottom-nav(ng-if="$root.at.root==undefined" layout="row" layout-align="space-between center")
         
         md-button.md-accent.md-raised(
-          ng-if="at.previous != undefined" ng-click="go(at.previous)"
+          ng-if="$root.at.previous != undefined" ng-click="go($root.at.previous)"
         )
-          | Go to {{at.previous}}
+          | Go to {{$root.at.previous}}
 
         md-button.md-accent.md-raised(
-          ng-if="at.parent != undefined" ng-click="go(at.parent)"
+          ng-if="$root.at.parent != undefined" ng-click="go($root.at.parent)"
         )
-          | Return to {{at.parent}}
+          | Return to {{$root.at.parent}}
 
         md-button.md-accent.md-raised(
-          ng-if="at.next != undefined" ng-click="go(at.next)"
+          ng-if="$root.at.next != undefined" ng-click="go($root.at.next)"
         )
-          | Go to {{at.next}}
+          | Go to {{$root.at.next}}
 
     include /includes/scripts

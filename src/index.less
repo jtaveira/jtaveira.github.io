@@ -5,6 +5,41 @@
   overflow: hidden;
   background: #34495E;
 
+  md-sidenav {
+    background: #34495E;
+
+    h4 {
+      color: white;
+      padding-left: 10px;
+    }
+
+    .map-section {
+      color: white;
+      margin-left: 10px;
+      border-left: 1px solid rgba(255,255,255,0.25);
+
+      p {
+        margin: 0;
+        padding: 5px 5px;
+        font-size: 12px;
+
+        &:hover{
+          background-color: rgba(255,255,255,0.25);
+          cursor: pointer;
+        }
+
+        b {
+          margin-right: 5px;
+          opacity: 0.5;
+        }
+      }
+    }
+  }
+
+  button.md-button {
+    background-color: #34495E;
+  }
+
   .wrapper {
     padding: 10px;
     padding-bottom: 0px;
@@ -35,7 +70,7 @@
   .mid-nav {
     position: absolute;
     padding: 30px;
-    top: 100px;
+    top: 280px;
     bottom: 50px;
     width: 100%;
 
@@ -44,7 +79,7 @@
       width: 100px;
 
       p.title {
-        font-size: 47px;
+        font-size: 35px;
         line-height: 0px;
         height: 13px;
       }
@@ -52,6 +87,55 @@
 
     p {
       margin: 0;
+    }
+  }
+
+  .lo-content {
+    position: absolute;
+    padding: 30px;
+    top: 85px;
+    bottom: 50px;
+    box-sizing: border-box;
+    left: 200px;
+    right: 200px;
+
+    h3 {
+      color: #F0C40D;  
+      font-weight: bold;
+    }
+
+    .wrapper {
+
+      padding-left: 0;
+
+      .data-title{
+        width: 100px;
+        color: white;
+      }
+
+      .data-content{
+        color: white;
+      }
+    }
+  }
+
+  .ct-content {
+    position: absolute;
+    padding: 30px;
+    top: 85px;
+    bottom: 50px;
+    box-sizing: border-box;
+    left: 200px;
+    right: 200px;
+
+    h3 {
+      color: #F0C40D;  
+      font-weight: bold;
+    }
+
+    .data-content{
+      padding-left: 0;
+      color: white;
     }
   }
 

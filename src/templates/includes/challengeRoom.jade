@@ -1,6 +1,6 @@
 .challengeRoom(
-  ng-if="at.type == 'challengeRoom'"
+  ng-if="$root.at.type == 'challengeRoom'"
   ng-controller="ChallengeRoomController"
 )
-  h1 Best try: {{ user.challengeCompleted[at.key].points }} Points
-  button(ng-click="check(at)") Texto
+  h1 Best try: {{ user.challengeCompleted[$root.at.key].points }} Points
+  button(ng-click="check($root.at)") Texto

@@ -1,5 +1,60 @@
+include /mixins/mixins
+
 .learningRoom(
-  ng-if="at.type == 'learningRoom'"
-  ng-controller="LearningRoomController"
+  ng-if="$root.at.type == 'learningRoom'"
+  ng-controller="LearningRoomController"  
 )
-  h1 Learning Room
+
+  .wrapper(layout="row" layout-align="space-between")
+    md-button(
+      ng-disabled="roomPointer == 0" 
+      ng-click="prev()"
+    ) 
+      i.material-icons navigate_before
+      | Back
+
+    md-button(
+      ng-disabled="roomPointer == contentMap.length - 1" 
+      ng-click="next()"
+    )
+      | Next
+      i.material-icons navigate_next
+  
+  section.lo-content(        
+    ng-if="contentMap[roomPointer].type == 'LO'"
+  )
+    h3 Learning Objectives
+
+    .wrapper(
+      ng-repeat="data in contentMap[roomPointer].data"
+      layout="row"
+    )
+      .data-title {{data.title}}
+      .data-content(flex="grow" ng-bind-html="data.content")
+
+  section.ct-content(        
+    ng-if="contentMap[roomPointer].type == 'CT'"
+  )
+    h3 {{contentMap[roomPointer].data.title}}
+
+    .data-content(
+      flex="grow" 
+      ng-bind-html="contentMap[roomPointer].data.content"
+    )
+
+  section.mid-nav(
+    layout="row" 
+    layout-align="space-between center"         
+    ng-if="contentMap[roomPointer].type == 'LI'"
+  )    
+    md-button(
+      ng-repeat="roomKey in contentMap[roomPointer].data" 
+      ng-click="go(roomKey)"
+      color-this="background-color"
+      data-color="roomKey"
+    )
+      p &nbsp;
+      p.title {{roomKey}}
+      p {{ calcUserRoomTreePoints(roomKey) }} / {{ calcPotentialRoomTreePoints(roomKey) }}
+      md-tooltip
+        | {{getRoom(roomKey).key}}. {{getRoom(roomKey).name}} 

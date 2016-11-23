@@ -1,8 +1,15 @@
 angular.module('app')
 
+.directive('gameTree', [
+  function(){
+    return {
+      templateUrl: "tree.html"
+    }
+  }])
+
 .controller('RootController', [
-  '$scope', '$timeout', 'user',
-  function($scope, $timeout, user){
+  '$scope', '$timeout', 'user', '$mdSidenav', '$rootScope',
+  function($scope, $timeout, user, $mdSidenav, $rootScope){
 
   $scope.user = user
 
@@ -14,8 +21,17 @@ angular.module('app')
         "name":"Initial Lobby",
         "root":true,
         "links":[
+          "2",
           "3"
-        ]
+        ],
+        "parent": "0"
+      },
+      {
+        "key":"2",
+        "type":"learningRoom",
+        "name":"Sala 2",
+        "links":[],
+        "parent": "0"
       },
       {
         "key":"3",
@@ -23,13 +39,33 @@ angular.module('app')
         "name":"Static Techniques",
         "learningObjectives":[
           {
-            "title":"Learning Objectives",
-            "content":"LOs"
+            "title":"LO 3.1",
+            "content":"Recalling some stuff"
+          },
+          {
+            "title":"LO 3.2",
+            "content":"Recalling some stuff stuff stuff"
+          },
+          {
+            "title":"LO 3.3",
+            "content":"Recalling some stuff"
+          },
+          {
+            "title":"LO 3.4",
+            "content":"Recalling some stuff extra extra extra"
           }
         ],
         "contents":[
           {
-            "title":"Learning Contents",
+            "title":"3.1 Information stuff",
+            "content":"content 3 extra extra"
+          },
+          {
+            "title":"3.2 Related stuff",
+            "content":"content 3"
+          },
+          {
+            "title":"Extra stufferino",
             "content":"content 3"
           }
         ],
@@ -155,12 +191,37 @@ angular.module('app')
             }
           }
         ],
-        "links":[],
+        "links":["3.3.1"],
         "previous": "3.2",
         "parent": "3"
+      },
+      {
+        "key":"3.3.1",
+        "type":"lobbyRoom",
+        "name":"Sala 3.3.1",
+        "links":[],
+        "parent": "3.3"
       }
     ]
   }
+
+  $scope.roomMap = _.keyBy(gameJson.rooms, "key")
+
+  $scope.createGameTree = function(jsonFile){
+
+
+    _.each(jsonFile.rooms, function(room){
+
+      _.each(room.links, function(link){
+
+        room.linkedRooms = room.linkedRooms || []
+        room.linkedRooms.push($scope.roomMap[link])
+
+      })
+    })
+  }
+
+  $scope.createGameTree(gameJson)
 
   $scope.calcPotentialRoomTreePoints = function(roomKey){
 
@@ -185,7 +246,7 @@ angular.module('app')
 
     var visited = {}
     var total = 0
-    function visitRoom(roomKey){
+    function visitRoom(roomKey){    
 
       if (visited[roomKey]) return
       var room = roomMap[roomKey]
@@ -203,7 +264,8 @@ angular.module('app')
     return total
   }
 
-  $scope.at = getRootRoom()
+  $rootScope.at = getRootRoom()
+  $scope.rootRoom = getRootRoom()
 
   var roomMap = _.keyBy(gameJson.rooms, 'key')
 
@@ -219,7 +281,16 @@ angular.module('app')
   }
 
   $scope.go = function(roomKey){
-    $scope.at = $scope.getRoom(roomKey)
+    $rootScope.at = $scope.getRoom(roomKey)
+  }
+
+  $scope.toggleLeft = buildToggler('left');
+  $scope.toggleRight = buildToggler('right');
+
+  function buildToggler(componentId) {
+    return function() {
+      $mdSidenav(componentId).toggle();
+    }
   }
 
 }])

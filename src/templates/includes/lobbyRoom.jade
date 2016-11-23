@@ -1,0 +1,8 @@
+include /mixins/mixins
+
+.lobbyRoom.roomHeader(
+  ng-if="$root.at.type == 'lobbyRoom'"  
+  ng-controller="LobbyRoomController"
+)
+
+  +roomTail 

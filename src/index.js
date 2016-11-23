@@ -1,5 +1,14 @@
-angular.module('app', ['ngMaterial', 'md.data.table', 'ngColorThis'])
+angular.module('app', [
+  'templates',
+  'ngMaterial',
+  'md.data.table',
+  'ngColorThis',
+])
 
+.config(function($sceProvider) {
+
+  $sceProvider.enabled(false);
+});
 
 angular.module('ngColorThis', []).factory('Color', function () {
   

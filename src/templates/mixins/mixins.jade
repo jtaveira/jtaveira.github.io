@@ -1,0 +1,17 @@
+mixin roomTail
+
+  section.mid-nav(
+    layout="row" 
+    layout-align="space-between center"         
+  )
+    md-button(
+      ng-repeat="roomKey in $root.at.links" 
+      ng-click="go(roomKey)"
+      color-this="background-color"
+      data-color="roomKey"
+    )
+      p &nbsp;
+      p.title {{roomKey}}
+      p {{ calcUserRoomTreePoints(roomKey) }} / {{ calcPotentialRoomTreePoints(roomKey) }}
+      md-tooltip
+        | {{getRoom(roomKey).key}}. {{getRoom(roomKey).name}} 

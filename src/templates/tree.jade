@@ -1,0 +1,5 @@
+.map-section(ng-repeat="room in room.linkedRooms")
+  p(ng-click="$root.at=room")  
+    b {{room.key}}
+    | {{room.name}}
+  game-tree(ng-if="room.linkedRooms.length")
