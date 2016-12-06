@@ -28,7 +28,7 @@ angular.module('app')
       },
       {
         "key":"2",
-        "type":"learningRoom",
+        "type":"lobbyRoom",
         "name":"Sala 2",
         "links":[],
         "parent": "0"

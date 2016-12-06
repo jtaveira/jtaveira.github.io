@@ -48,6 +48,7 @@ angular.module('app')
         })
       })
 
+      if(room.links.length > 0)
       $scope.contentMap.push({
         type: 'LI',
         data: room.links,

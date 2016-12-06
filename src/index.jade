@@ -66,16 +66,16 @@ html(ng-app="app")
       include /includes/lobbyRoom   
 
       section.bottom-nav(ng-if="$root.at.root==undefined" layout="row" layout-align="space-between center")
-        
-        md-button.md-accent.md-raised(
-          ng-if="$root.at.previous != undefined" ng-click="go($root.at.previous)"
-        )
-          | Go to {{$root.at.previous}}
 
         md-button.md-accent.md-raised(
           ng-if="$root.at.parent != undefined" ng-click="go($root.at.parent)"
         )
           | Return to {{$root.at.parent}}
+        
+        md-button.md-accent.md-raised(
+          ng-if="$root.at.previous != undefined" ng-click="go($root.at.previous)"
+        )
+          | Go to {{$root.at.previous}}
 
         md-button.md-accent.md-raised(
           ng-if="$root.at.next != undefined" ng-click="go($root.at.next)"
