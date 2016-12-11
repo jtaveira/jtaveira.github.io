@@ -10,8 +10,8 @@ angular.module('app')
 
   User.prototype.enterChallenge = function(challenge){
 
-    if (!this.challengeCompleted[challenge.key]) {
-      this.challengeCompleted[challenge.key] = {}      
+    if (!this.challengeCompleted[challenge.roomKey]) {
+      this.challengeCompleted[challenge.roomKey] = { points : 0 }      
     }    
   }
 
@@ -19,10 +19,10 @@ angular.module('app')
 
     var currentPointsForRoom
 
-    currentPointsForRoom = this.challengeCompleted[challenge.key].points
+    currentPointsForRoom = this.challengeCompleted[challenge.roomKey].points
 
     if (challenge.points > currentPointsForRoom){
-      this.challengeCompleted[challenge.key].points = challenge.points
+      this.challengeCompleted[challenge.roomKey].points = challenge.points
     }
   }
 

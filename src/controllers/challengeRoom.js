@@ -1,23 +1,27 @@
 angular.module('app')
 
 .controller('ChallengeRoomController', [
-	'$scope', '$timeout',
-	function($scope, $timeout){
+	'$scope', '$timeout', 'user', '$rootScope',
+	function($scope, $timeout, user, $root){
 
-  var totalPoints = 0
+  user.enterChallenge({ 
+    roomKey: $root.at.key
+  })
   
-  $scope.validateAnswer = function(challenge, answer){
-	  if (answer == challenge.answer){
-      totalPoints += challenge.points
-    }
-	}
+  $scope.multipleChoiceValidate = function(exercises){
 
-  $scope.endChallenge = function(challenge){
+    var totalPoints = 0
+    _.each(exercises, function(ex){
 
-    user.updateChallengePoints({ 
-      key: challenge.key,
-      totalPoints: totalPoints,
+  	  if (ex.selectedAnswer == ex.answer){
+        totalPoints += 1
+      }
     })
-  }
+    
+    user.updateChallengePoints({ 
+      roomKey: $root.at.key,
+      points: totalPoints,
+    })
+	}
 
 }])

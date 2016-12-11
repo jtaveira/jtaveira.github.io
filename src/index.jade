@@ -62,7 +62,10 @@ html(ng-app="app")
       
 
       include /includes/learningRoom
-      include /includes/challengeRoom
+      .challengeRoom(
+        ng-if="$root.at.type == 'challengeRoom'"
+      )
+        include /includes/challengeRoom
       include /includes/lobbyRoom   
 
       section.bottom-nav(ng-if="$root.at.root==undefined" layout="row" layout-align="space-between center")

@@ -5,10 +5,12 @@ angular.module('app', [
   'ngColorThis',
 ])
 
-.config(function($sceProvider) {
-
-  $sceProvider.enabled(false);
-});
+.config([
+  '$sceProvider', '$mdThemingProvider', 
+  function($sceProvider, $mdThemingProvider) {
+    $sceProvider.enabled(false)
+    $mdThemingProvider.theme('dark-grey').backgroundPalette('grey').dark()
+}])
 
 angular.module('ngColorThis', []).factory('Color', function () {
   

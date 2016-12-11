@@ -42,6 +42,11 @@ include /mixins/mixins
       ng-bind-html="contentMap[roomPointer].data.content"
     )
 
+  section.lo-content(        
+    ng-if="contentMap[roomPointer].type == 'CH'"
+  )
+    include /includes/challengeRoom
+
   section.mid-nav(
     layout="row" 
     layout-align="space-between center"         

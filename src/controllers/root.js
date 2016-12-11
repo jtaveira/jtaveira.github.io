@@ -94,15 +94,24 @@ angular.module('app')
         ],
         "challenges":[
           {
-            "type":"multipleChoice",
-            "exercises":[
+            "type":"Multiple Choice",
+            "exercises": [
               {
                 "statement":"Static testing techniques ...",
                 "answer":"d",
                 "options":[
-                  {"value":"d"},
-                  {"value":"u"},
-                  {"value":"r"}
+                  "d",
+                  "u",
+                  "r"
+                ]
+              },
+              {
+                "statement":"Static testing techniques ...",
+                "answer":"d",
+                "options":[
+                  "d",
+                  "u",
+                  "r"
                 ]
               }
             ]
@@ -130,14 +139,14 @@ angular.module('app')
         ],
         "challenges":[
           {
-            "type":"hangman",
+            "type":"Hangman",
             "exercise":{
               "statement":"Recording updated status of defects",
               "answer":"rework"
             }
           },
           {
-            "type":"hangman",
+            "type":"Hangman",
             "exercise":{
               "statement":"Defining the review criteria",
               "answer":"planning"
@@ -167,7 +176,7 @@ angular.module('app')
         ],
         "challenges":[
           {
-            "type":"fillTheGaps",
+            "type":"Fill The Gaps",
             "exercise":{
               "statement":"Recording updated status of defects",
               "gapHeadings":[
@@ -205,7 +214,7 @@ angular.module('app')
     ]
   }
 
-  $scope.roomMap = _.keyBy(gameJson.rooms, "key")
+  var roomMap = $scope.roomMap = _.keyBy(gameJson.rooms, "key")
 
   $scope.createGameTree = function(jsonFile){
 
@@ -231,8 +240,11 @@ angular.module('app')
 
       if (visited[roomKey]) return
       var room = roomMap[roomKey]
-      if (room.challenges != undefined)    
-      total += room.challenges.length
+      if (room.challenges != undefined) 
+        _.each(room.challenges, function(challenge){
+          if(challenge.exercises)
+            total += challenge.exercises.length
+        })   
       visited[roomKey] = true
       _.each(room.links, function(linkedRoomKey){
         visitRoom(linkedRoomKey)
@@ -248,13 +260,14 @@ angular.module('app')
     var total = 0
     function visitRoom(roomKey){    
 
+      console.log(roomKey)
+
       if (visited[roomKey]) return
       var room = roomMap[roomKey]
       
-      if (!user.challengeCompleted[roomKey]) return
-      var points = user.challengeCompleted[roomKey].points
-      
-      total += points
+      if (user.challengeCompleted[roomKey])
+        total += user.challengeCompleted[roomKey].points
+
       visited[roomKey] = true
       _.each(room.links, function(linkedRoomKey){
         visitRoom(linkedRoomKey)
@@ -267,7 +280,6 @@ angular.module('app')
   $rootScope.at = getRootRoom()
   $scope.rootRoom = getRootRoom()
 
-  var roomMap = _.keyBy(gameJson.rooms, 'key')
 
   function getRootRoom(){
     for(x in gameJson.rooms){

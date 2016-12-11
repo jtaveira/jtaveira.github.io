@@ -1,6 +1,36 @@
 .challengeRoom(
-  ng-if="$root.at.type == 'challengeRoom'"
   ng-controller="ChallengeRoomController"
 )
-  h1 Best try: {{ user.challengeCompleted[$root.at.key].points }} Points
-  button(ng-click="check($root.at)") Texto
+
+  md-card(
+    md-theme="dark-grey"
+    ng-if="contentMap[roomPointer].data.type == 'Multiple Choice'"
+  )
+    md-card-title
+      md-card-title-text
+        span.md-headline
+          | Challenge ({{contentMap[roomPointer].data.type}})
+
+    md-card-content
+
+      section(
+        layout="row" 
+        layout-align="space-between center"
+        ng-repeat="exercise in contentMap[roomPointer].data.exercises"
+      )  
+
+        .question {{exercise.statement}}
+
+        md-input-container
+          md-select(
+            ng-model="exercise.selectedAnswer"
+            placeholder="Please select"
+          )
+            md-option(
+              ng-repeat="option in exercise.options"
+              ng-value="option" 
+            ) {{option}}
+
+      md-button.md-raised.md-warn(
+        ng-click="multipleChoiceValidate(contentMap[roomPointer].data.exercises)" 
+      ) Submit

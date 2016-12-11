@@ -1,8 +1,8 @@
 angular.module('app')
 
 .controller('LearningRoomController', [
-	'$scope', '$timeout', 
-	function($scope, $timeout){
+	'$scope', '$timeout', 'user',
+	function($scope, $timeout, user){
 
     var room
     $scope.contentMap  = []
