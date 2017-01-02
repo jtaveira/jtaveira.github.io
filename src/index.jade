@@ -10,79 +10,105 @@ html(ng-app="app")
 
   body
 
-    .app(ng-cloak ng-controller="RootController")
+    div(ng-cloak)
+      md-content
+        md-tabs(md-dynamic-height md-border-bottom)
+          md-tab(label="iLearnTest")
+            md-content
 
-      md-sidenav(
-        class="md-sidenav-left" 
-        md-component-id="left"
-        md-whiteframe="4"
-      )
+              .app(ng-cloak ng-controller="RootController")
+                md-button.md-raised.md-warn(ng-click="createGameTree($root.game)" ng-if="$root.at.root!=undefined") Create Game
 
-        h4 Table of contents
-        .map-section
-          p(ng-click="$root.at=rootRoom")
-            b Home
+                md-sidenav(
+                  class="md-sidenav-left" 
+                  md-component-id="left"
+                  md-whiteframe="4"
+                )
 
-        .map-section(ng-repeat="room in roomMap[roomMap[$root.at.parent].parent].linkedRooms")
-          p(ng-click="$root.at=room") 
-            b {{room.key}}
-            | {{room.name}}
-          game-tree(ng-if="room.linkedRooms.length")
+                  h4 Table of contents
+                  .map-section
+                    p(ng-click="$root.at=rootRoom")
+                      b Home
 
-      .wrapper        
-        span.top-level 
-          | {{$root.at.key}}. {{$root.at.name}}
+                  .map-section(ng-repeat="room in roomMap[roomMap[$root.at.parent].parent].linkedRooms")
+                    p(ng-click="$root.at=room") 
+                      b {{room.key}}
+                      | {{room.name}}
+                    game-tree(ng-if="room.linkedRooms.length")
 
-        span.user-status(
-          ng-if="$root.at.root==undefined"
-        )  
-          | User status {{ user.calcScore() }} points
+                .wrapper        
+                  span.top-level 
+                    | {{$root.at.key}}. {{$root.at.name}}
 
-        span.user-status(
-          ng-if="$root.at.root==true"
-        )  
-          md-button(
-            ng-click="toggleLeft()" 
-            class="md-raised"
-          )
-            | Show mini-map 
+                  span.user-status(
+                    ng-if="$root.at.root==undefined"
+                  )  
+                    | User status {{ user.calcScore() }} points
 
-      .wrapper(
-        ng-if="$root.at.root==undefined"
-      )  
-        .wrapper(layout="row" layout-align="space-between center" flex="grow")
-          span.room-status
-            | Room points {{ calcUserRoomTreePoints($root.at.key) }} / {{ calcPotentialRoomTreePoints($root.at.key) }} points
+                  span.user-status(
+                    ng-if="$root.at.root==true"
+                  )  
+                    md-button(
+                      ng-click="toggleLeft()" 
+                      class="md-raised"
+                    )
+                      | Show mini-map 
 
-          md-button(
-            ng-click="toggleLeft()" 
-            class="md-raised"
-          )
-            | Show mini-map  
-      
+                .wrapper(
+                  ng-if="$root.at.root==undefined"
+                )  
+                  .wrapper(layout="row" layout-align="space-between center" flex="grow")
+                    span.room-status(ng-if="calcPotentialRoomTreePoints($root.at.key) !=0")
+                      | Room points {{ calcUserRoomTreePoints($root.at.key) }} / {{ calcPotentialRoomTreePoints($root.at.key) }} points
 
-      include /includes/learningRoom
-      .challengeRoom(
-        ng-if="$root.at.type == 'challengeRoom'"
-      )
-        include /includes/challengeRoom
-      include /includes/lobbyRoom   
+                    md-button(
+                      ng-click="toggleLeft()" 
+                      class="md-raised"
+                    )
+                      | Show mini-map  
+                
 
-      section.bottom-nav(ng-if="$root.at.root==undefined" layout="row" layout-align="space-between center")
+                include /includes/learningRoom
+                .challengeRoom(
+                  ng-if="$root.at.type == 'challengeRoom'"
+                )
+                  include /includes/challengeRoom
+                include /includes/lobbyRoom   
 
-        md-button.md-accent.md-raised(
-          ng-if="$root.at.parent != undefined" ng-click="go($root.at.parent)"
-        )
-          | Return to {{$root.at.parent}}
-        
-        md-button.md-accent.md-raised(
-          ng-if="$root.at.previous != undefined" ng-click="go($root.at.previous)"
-        )
-          | Go to {{$root.at.previous}}
+                section.bottom-nav(ng-if="$root.at.root==undefined" layout="row" layout-align="space-between center")
 
-        md-button.md-accent.md-raised(
-          ng-if="$root.at.next != undefined" ng-click="go($root.at.next)"
-        )
-          | Go to {{$root.at.next}}
+                  md-button.md-accent.md-raised(
+                    ng-if="$root.at.parent != undefined" ng-click="go($root.at.parent)"
+                  )
+                    | Return to {{$root.at.parent}}
+                  
+                  md-button.md-accent.md-raised(
+                    ng-if="$root.at.previous != undefined" ng-click="go($root.at.previous)"
+                  )
+                    | Go to {{$root.at.previous}}
+
+                  md-button.md-accent.md-raised(
+                    ng-if="$root.at.next != undefined" ng-click="go($root.at.next)"
+                  )
+                    | Go to {{$root.at.next}}
+
+
+          md-tab(label="Json Editor (Tree)")
+            md-content(class="md-padding")
+              div(
+                ng-jsoneditor 
+                ng-model="$root.game" 
+                options="{mode: 'tree'}"
+              )
+
+          md-tab(label="Json Editor (Code)")
+            md-content(class="md-padding")
+              div(
+                ng-jsoneditor 
+                ng-model="$root.game" 
+                options="{mode: 'code'}"
+                style="height:500px"
+              )
+              
 
     include /includes/scripts

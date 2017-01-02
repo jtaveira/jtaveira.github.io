@@ -12,6 +12,7 @@ mixin roomTail
     )
       p &nbsp;
       p.title {{roomKey}}
-      p {{ calcUserRoomTreePoints(roomKey) }} / {{ calcPotentialRoomTreePoints(roomKey) }}
+      p(ng-if="calcPotentialRoomTreePoints(roomKey) != 0") {{ calcUserRoomTreePoints(roomKey) }} / {{ calcPotentialRoomTreePoints(roomKey) }}
+      p(ng-if="calcPotentialRoomTreePoints(roomKey) == 0") &nbsp;
       md-tooltip
         | {{getRoom(roomKey).key}}. {{getRoom(roomKey).name}} 

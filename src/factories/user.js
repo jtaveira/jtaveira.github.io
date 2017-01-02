@@ -8,6 +8,11 @@ angular.module('app')
     this.challengeCompleted = {}
   }
 
+  User.prototype.reset= function() {
+    this.roomsVisited = {}
+    this.challengeCompleted = {}
+  }
+
   User.prototype.enterChallenge = function(challenge){
 
     if (!this.challengeCompleted[challenge.roomKey]) {

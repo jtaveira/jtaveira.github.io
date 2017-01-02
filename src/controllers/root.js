@@ -1,3 +1,5 @@
+
+
 angular.module('app')
 
 .directive('gameTree', [
@@ -13,7 +15,7 @@ angular.module('app')
 
   $scope.user = user
 
-  var gameJson = {  
+  $rootScope.game = {  
     "rooms":[
       {
         "key":"0",
@@ -93,6 +95,29 @@ angular.module('app')
           }
         ],
         "challenges":[
+          {
+            "type":"Multiple Choice",
+            "exercises": [
+              {
+                "statement":"Static testing techniques ...",
+                "answer":"d",
+                "options":[
+                  "d",
+                  "u",
+                  "r"
+                ]
+              },
+              {
+                "statement":"Static testing techniques ...",
+                "answer":"d",
+                "options":[
+                  "d",
+                  "u",
+                  "r"
+                ]
+              }
+            ]
+          },
           {
             "type":"Multiple Choice",
             "exercises": [
@@ -214,12 +239,10 @@ angular.module('app')
     ]
   }
 
-  var roomMap = $scope.roomMap = _.keyBy(gameJson.rooms, "key")
-
   $scope.createGameTree = function(jsonFile){
 
-
-    _.each(jsonFile.rooms, function(room){
+    $scope.roomMap = _.keyBy(_.cloneDeep(jsonFile.rooms), "key")
+    _.each($scope.roomMap, function(room){
 
       _.each(room.links, function(link){
 
@@ -228,9 +251,12 @@ angular.module('app')
 
       })
     })
+
+    user.reset()
+    $rootScope.at = getRootRoom()
   }
 
-  $scope.createGameTree(gameJson)
+  $scope.createGameTree($rootScope.game)
 
   $scope.calcPotentialRoomTreePoints = function(roomKey){
 
@@ -239,7 +265,7 @@ angular.module('app')
     function visitRoom(roomKey){
 
       if (visited[roomKey]) return
-      var room = roomMap[roomKey]
+      var room = $scope.roomMap[roomKey]
       if (room.challenges != undefined) 
         _.each(room.challenges, function(challenge){
           if(challenge.exercises)
@@ -260,10 +286,8 @@ angular.module('app')
     var total = 0
     function visitRoom(roomKey){    
 
-      console.log(roomKey)
-
       if (visited[roomKey]) return
-      var room = roomMap[roomKey]
+      var room = $scope.roomMap[roomKey]
       
       if (user.challengeCompleted[roomKey])
         total += user.challengeCompleted[roomKey].points
@@ -282,14 +306,14 @@ angular.module('app')
 
 
   function getRootRoom(){
-    for(x in gameJson.rooms){
-      if(gameJson.rooms[x].root == true)
-        return gameJson.rooms[x]
+    for(x in $rootScope.game.rooms){
+      if($rootScope.game.rooms[x].root == true)
+        return $rootScope.game.rooms[x]
     }
   }
 
   $scope.getRoom = function(key){
-    return roomMap[key]
+    return $scope.roomMap[key]
   }
 
   $scope.go = function(roomKey){

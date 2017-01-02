@@ -8,14 +8,18 @@ angular.module('app')
     roomKey: $root.at.key
   })
   
-  $scope.multipleChoiceValidate = function(exercises){
+  $scope.multipleChoiceValidate = function(challenges){
 
     var totalPoints = 0
-    _.each(exercises, function(ex){
 
-  	  if (ex.selectedAnswer == ex.answer){
-        totalPoints += 1
-      }
+    _.each(challenges, function(challenge){
+
+      _.each(challenge.data.exercises, function(ex){
+
+    	  if (ex.selectedAnswer == ex.answer){
+          totalPoints += 1
+        }
+      })
     })
     
     user.updateChallengePoints({ 
