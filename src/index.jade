@@ -61,6 +61,9 @@ html(ng-app="app")
                     span.room-status(ng-if="calcPotentialRoomTreePoints($root.at.key) !=0")
                       | Room points {{ calcUserRoomTreePoints($root.at.key) }} / {{ calcPotentialRoomTreePoints($root.at.key) }} points
 
+                    span.room-status(ng-if="calcPotentialRoomTreePoints($root.at.key) ==0")
+                      | This room has no points
+
                     md-button(
                       ng-click="toggleLeft()" 
                       class="md-raised"

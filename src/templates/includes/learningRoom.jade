@@ -58,9 +58,24 @@ include /mixins/mixins
       color-this="background-color"
       data-color="roomKey"
     )
-      p &nbsp;
+      &nbsp;
       p.title {{roomKey}}
       p(ng-if="calcPotentialRoomTreePoints(roomKey) != 0") {{ calcUserRoomTreePoints(roomKey) }} / {{ calcPotentialRoomTreePoints(roomKey) }}
-      p(ng-if="calcPotentialRoomTreePoints(roomKey) == 0") &nbsp;
+      p(ng-if="calcPotentialRoomTreePoints(roomKey) == 0") 
+        &nbsp;
+
+      span(ng-if="calcUserRoomTreePoints(roomKey)/calcPotentialRoomTreePoints(roomKey)>=0.5")
+        i.material-icons star
+      span(ng-if="calcUserRoomTreePoints(roomKey)/calcPotentialRoomTreePoints(roomKey)>=0.75")
+        i.material-icons star
+      span(ng-if="calcUserRoomTreePoints(roomKey)/calcPotentialRoomTreePoints(roomKey)>=1")
+        i.material-icons star
+
       md-tooltip
         | {{getRoom(roomKey).key}}. {{getRoom(roomKey).name}} 
+
+
+
+
+
+

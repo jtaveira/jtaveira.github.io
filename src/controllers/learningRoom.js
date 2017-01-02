@@ -9,7 +9,6 @@ angular.module('app')
     $scope.roomPointer = 0
 
     $scope.$watch('$parent.at', function(n, o){
-      console.log(n, o)
       $scope.prepareRoom(n)      
     })
 
@@ -53,6 +52,5 @@ angular.module('app')
         type: 'LI',
         data: room.links,
       })
-      console.log('>>', $scope.contentMap)
     }
 }])
