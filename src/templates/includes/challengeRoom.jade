@@ -34,3 +34,76 @@
       md-button.md-raised.md-warn(
         ng-click="multipleChoiceValidate(contentMap)" 
       ) Submit
+
+
+  md-card(
+    md-theme="dark-grey"
+    ng-if="contentMap[roomPointer].data.type == 'Fill the Gaps'"
+  )
+    md-card-title
+      md-card-title-text
+        span.md-headline
+          | Challenge ({{contentMap[roomPointer].data.type}})
+
+    md-card-content
+
+      section(
+        layout="row" 
+        layout-align="space-between center"
+        ng-repeat="exercise in contentMap[roomPointer].data.exercises"
+      )  
+
+        .question {{exercise.statement}}
+
+        md-input-container
+          input(
+            type="text"
+            ng-model="exercise.selectedAnswer"
+            placeholder="Please write a word"
+          )
+
+      section(
+        layout="row" 
+      )
+        .question(
+          ng-repeat="help in helps"
+        ) {{help}} &nbsp;
+
+        p
+
+      md-button.md-raised.md-warn(
+        ng-click="fillTheGapsValidate(contentMap)" 
+      ) Submit
+
+      md-button.md-raised.md-warn(
+        ng-click="getHelp(contentMap)" 
+      ) Get Help
+
+
+
+  md-card(
+    md-theme="dark-grey"
+    ng-if="contentMap[roomPointer].data.type == 'Select the Keywords'"
+  )
+    md-card-title
+      md-card-title-text
+        span.md-headline
+          | Challenge ({{contentMap[roomPointer].data.type}})
+
+    md-card-content
+
+      section(
+        layout="row" 
+        layout-align="space-between center"
+        ng-repeat="exercise in contentMap[roomPointer].data.exercises"
+      )  
+
+        .question {{exercise.statement}}
+
+
+      md-button.md-raised.md-warn(
+        ng-click="selectTheKeywordsValidate(contentMap)" 
+      ) Submit
+
+
+

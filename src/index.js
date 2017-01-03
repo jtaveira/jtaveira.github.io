@@ -25,7 +25,9 @@ angular.module('ngColorThis', []).factory('Color', function () {
     var b = _.b;
     var rOffset = _.rOffset;
     var gOffset = _.gOffset;
-    var bOffset = _.bOffset;var output = '';var salt = saltParam ? parseInt(saltParam) : -5;
+    var bOffset = _.bOffset;
+    var output = '';
+    var salt = saltParam ? parseInt(saltParam) : -5;
     string = string.toString();
     for (var i = string.length - 1; i >= 0; i--) {
       var charAt = string.charCodeAt(i).toString().split('');
@@ -35,18 +37,18 @@ angular.module('ngColorThis', []).factory('Color', function () {
         output += Math.pow(y * Math.round(y / 2), 8);
       }
     }
-    if (output.length % 3 === 0) output = output.split('').reverse().join('');
-    rOffset = Math.floor(output.length / 3);
-    gOffset = rOffset * 2;
-    bOffset = output.length - 3;
-    r = toVal(output[rOffset], output[rOffset + 1], output[rOffset + 2]);
-    g = toVal(output[gOffset], output[gOffset + 1], output[gOffset + 2]);
-    b = toVal(output[bOffset], output[bOffset + 1], output[bOffset + 2]);
+    if (output.length % 3 === 0) output = output.split('').reverse().join('')
+    rOffset = Math.floor(output.length / 3)
+    gOffset = rOffset * 2
+    bOffset = output.length - 3
+    r = toVal(output[rOffset], output[rOffset + 1], output[rOffset + 2])
+    g = toVal(output[gOffset], output[gOffset + 1], output[gOffset + 2])
+    b = toVal(output[bOffset], output[bOffset + 1], output[bOffset + 2])
     return {
       red: r,
       green: g,
       blue: b
-    };
+    }
   }
 
   function toVal(a, b, c) {

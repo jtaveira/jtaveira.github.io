@@ -23,9 +23,20 @@ angular.module('app')
         "name":"Initial Lobby",
         "root":true,
         "links":[
+          "1",
           "2",
-          "3"
+          "3",
+          "4",
+          "5",
+          "6"
         ],
+        "parent": "0"
+      },
+      {
+        "key":"1",
+        "type":"lobbyRoom",
+        "name":"Sala 1",
+        "links":[],
         "parent": "0"
       },
       {
@@ -164,18 +175,18 @@ angular.module('app')
         ],
         "challenges":[
           {
-            "type":"Hangman",
-            "exercise":{
-              "statement":"Recording updated status of defects",
-              "answer":"rework"
-            }
-          },
-          {
-            "type":"Hangman",
-            "exercise":{
-              "statement":"Defining the review criteria",
-              "answer":"planning"
-            }
+            "type":"Fill the Gaps",
+            "exercises":[
+              {
+                "statement":"Sentence with useful information to guess the word",
+                "answer":"rework",
+                "helpers":[
+                  "This is help number 1.",
+                  "This is help number 2.",
+                  "This is help number 3 and the last one for this exercise."
+                ]
+              }
+            ]
           }
         ],
         "links":[],
@@ -201,28 +212,34 @@ angular.module('app')
         ],
         "challenges":[
           {
-            "type":"Fill The Gaps",
-            "exercise":{
-              "statement":"Recording updated status of defects",
-              "gapHeadings":[
-                {"value":"X"},
-                {"value":"returnValue"},
-                {"value":"W"}
-              ],
-              "rows":[
-                {
-                  "question":"double Sqrt(double X)",
-                  "gaps":[
-                    {"answer":"d"},{"answer":"u"},{"answer":"r"}
-                  ]
-                }
-              ],
-              "options":[
-                {"value":"d"},
-                {"value":"u"},
-                {"value":"r"}
-              ]
-            }
+            "type":"Select the Keywords",
+            "exercises":[
+              {
+                "statement":"Sentence with useful information to explain the exercise",
+                "topics":[
+                  {
+                    "topic1":[
+                      "a1",
+                      "b1",
+                      "c1",
+                      "d1"
+                    ],
+                    "topic2":[
+                      "a2",
+                      "b2",
+                      "c2",
+                      "d2"
+                    ],
+                    "topic3":[
+                      "a3",
+                      "b3",
+                      "c3",
+                      "d3"
+                    ],
+                  }
+                ]
+              }
+            ]
           }
         ],
         "links":["3.3.1"],
@@ -235,11 +252,32 @@ angular.module('app')
         "name":"Sala 3.3.1",
         "links":[],
         "parent": "3.3"
+      },
+      {
+        "key":"4",
+        "type":"lobbyRoom",
+        "name":"Sala 4",
+        "links":[],
+        "parent": "0"
+      },
+      {
+        "key":"5",
+        "type":"lobbyRoom",
+        "name":"Sala 5",
+        "links":[],
+        "parent": "0"
+      },
+      {
+        "key":"6",
+        "type":"lobbyRoom",
+        "name":"Sala 6",
+        "links":[],
+        "parent": "0"
       }
     ]
   }
 
-  $scope.createGameTree = function(jsonFile){
+  $rootScope.createGameTree = function(jsonFile){
 
     $scope.roomMap = _.keyBy(_.cloneDeep(jsonFile.rooms), "key")
     _.each($scope.roomMap, function(room){
@@ -256,7 +294,7 @@ angular.module('app')
     $rootScope.at = getRootRoom()
   }
 
-  $scope.createGameTree($rootScope.game)
+  $rootScope.createGameTree($rootScope.game)
 
   $scope.calcPotentialRoomTreePoints = function(roomKey){
 
