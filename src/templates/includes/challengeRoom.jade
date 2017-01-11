@@ -38,7 +38,7 @@
 
   md-card(
     md-theme="dark-grey"
-    ng-if="contentMap[roomPointer].data.type == 'Fill the Gaps'"
+    ng-if="contentMap[roomPointer].data.type == 'Find the Word'"
   )
     md-card-title
       md-card-title-text
@@ -53,7 +53,14 @@
         ng-repeat="exercise in contentMap[roomPointer].data.exercises"
       )  
 
-        .question {{exercise.statement}}
+        .question(
+          ng-if="exercise.helpUsed == false"
+        ) {{exercise.statement}}
+
+        .question(
+          ng-if="exercise.helpUsed == true"
+        ) {{exercise.statement}} 
+          p {{exercise.helper}}
 
         md-input-container
           input(
@@ -62,22 +69,15 @@
             placeholder="Please write a word"
           )
 
-      section(
-        layout="row" 
-      )
-        .question(
-          ng-repeat="help in helps"
-        ) {{help}} &nbsp;
-
-        p
+        md-button.md-raised.md-warn(
+        ng-click="exercise.helpUsed = true" 
+        ) Get Help
 
       md-button.md-raised.md-warn(
-        ng-click="fillTheGapsValidate(contentMap)" 
+        ng-click="findTheWordValidate(contentMap)" 
       ) Submit
 
-      md-button.md-raised.md-warn(
-        ng-click="getHelp(contentMap)" 
-      ) Get Help
+
 
 
 

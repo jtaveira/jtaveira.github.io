@@ -28,7 +28,7 @@ angular.module('app')
     })
 	}
 
-  $scope.fillTheGapsValidate = function(challenges){
+  $scope.findTheWordValidate = function(challenges){
 
     var totalPoints = 0
 
@@ -48,31 +48,11 @@ angular.module('app')
     })
   }
 
-  $scope.helps = []
-  $scope.helpClicks = 0
-
-  $scope.getHelp = function(challenges){
-
-    _.each(challenges, function(challenge){
-
-      _.each(challenge.data.exercises, function(ex){
-
-        if(ex.helpers[$scope.helpClicks] != undefined)
-          
-          $scope.helps.push(ex.helpers[$scope.helpClicks])
-
-      })
-    })
-
-    $scope.helpClicks++
-
-  }
-
   $scope.selectTheKeywordsValidate = function(challenges){
 
     var totalPoints = 0
 
-      
+
     
     user.updateChallengePoints({ 
       roomKey: $root.at.key,

@@ -175,16 +175,25 @@ angular.module('app')
         ],
         "challenges":[
           {
-            "type":"Fill the Gaps",
+            "type":"Find the Word",
             "exercises":[
               {
-                "statement":"Sentence with useful information to guess the word",
+                "statement":"Sentence with useful information to guess the word.",
                 "answer":"rework",
-                "helpers":[
-                  "This is help number 1.",
-                  "This is help number 2.",
-                  "This is help number 3 and the last one for this exercise."
-                ]
+                "helper":"This is help.",
+                "helpUsed":false
+              },
+              {
+                "statement":"Sentence with useful information to guess the word.",
+                "answer":"rework",
+                "helper":"This is help.",
+                "helpUsed":false
+              },
+              {
+                "statement":"Sentence with useful information to guess the word.",
+                "answer":"rework",
+                "helper":"This is help.",
+                "helpUsed":false
               }
             ]
           }
