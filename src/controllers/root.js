@@ -225,27 +225,68 @@ angular.module('app')
             "exercises":[
               {
                 "statement":"Sentence with useful information to explain the exercise",
-                "topics":[
-                  {
-                    "topic1":[
-                      "a1",
-                      "b1",
-                      "c1",
-                      "d1"
-                    ],
-                    "topic2":[
-                      "a2",
-                      "b2",
-                      "c2",
-                      "d2"
-                    ],
-                    "topic3":[
-                      "a3",
-                      "b3",
-                      "c3",
-                      "d3"
-                    ],
+                "topics" : {
+                  "a": {
+                    "label": "A label"
+                  },
+                  "b": {
+                    "label": "B label"
+                  },
+                  "c": {
+                    "label": "C label"
                   }
+                },
+                "items": [
+                  {
+                    "topic": "a",
+                    "concept": "a1",
+                    // "selected" : true|false,
+                    // "correct" : true
+                  },
+                  {
+                    "topic": "a",
+                    "concept": "a2"
+                  },
+                  {
+                    "topic": "a",
+                    "concept": "a3"
+                  },
+                  {
+                    "topic": "a",
+                    "concept": "a4"
+                  },
+                  {
+                    "topic": "b",
+                    "concept": "b1"
+                  },
+                  {
+                    "topic": "b",
+                    "concept": "b2"
+                  },
+                  {
+                    "topic": "b",
+                    "concept": "b3"
+                  },
+                  {
+                    "topic": "b",
+                    "concept": "b4"
+                  },
+                  {
+                    "topic": "c",
+                    "concept": "c1"
+                  },
+                  {
+                    "topic": "c",
+                    "concept": "c2"
+                  },
+                  {
+                    "topic": "c",
+                    "concept": "c3"
+                  },
+                  {
+                    "topic": "c",
+                    "concept": "c4"
+                  },
                 ]
               }
             ]

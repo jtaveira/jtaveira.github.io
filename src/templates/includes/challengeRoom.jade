@@ -17,6 +17,7 @@
         layout="row" 
         layout-align="space-between center"
         ng-repeat="exercise in contentMap[roomPointer].data.exercises"
+        ng-class="{true:'correct', false:'wrong'}[exercise.correct]"
       )  
 
         .question {{exercise.statement}}
@@ -51,6 +52,7 @@
         layout="row" 
         layout-align="space-between center"
         ng-repeat="exercise in contentMap[roomPointer].data.exercises"
+        ng-class="{true:'correct', false:'wrong'}[exercise.correct]"
       )  
 
         .question(
@@ -59,8 +61,11 @@
 
         .question(
           ng-if="exercise.helpUsed == true"
-        ) {{exercise.statement}} 
-          p {{exercise.helper}}
+        ) 
+          p {{exercise.statement}} 
+          p.help  
+            i.material-icons help
+            | {{exercise.helper}}
 
         md-input-container
           input(
@@ -78,9 +83,6 @@
       ) Submit
 
 
-
-
-
   md-card(
     md-theme="dark-grey"
     ng-if="contentMap[roomPointer].data.type == 'Select the Keywords'"
@@ -92,18 +94,29 @@
 
     md-card-content
 
-      section(
-        layout="row" 
-        layout-align="space-between center"
+      section(        
         ng-repeat="exercise in contentMap[roomPointer].data.exercises"
       )  
 
-        .question {{exercise.statement}}
+        .question(
+          ng-init="prepareKeywordChallenge(exercise)"
+        ) 
+          | {{exercise.statement}} 
+          b {{currentTopic}}
 
+        section.keywordMatrix(layout="row" layout-wrap)
+          .keyword(
+            flex="33"
+            ng-repeat="keyword in options"
+            ng-class="{true:'correct', false:'wrong'}[keyword.correct]"
+          )
+            .contents
+              md-checkbox(ng-model="keyword.selected")
+              | {{keyword.concept}}
 
-      md-button.md-raised.md-warn(
-        ng-click="selectTheKeywordsValidate(contentMap)" 
-      ) Submit
+        md-button.md-raised.md-warn(
+          ng-click="selectTheKeywordsValidate(exercise)" 
+        ) Submit
 
 
 
