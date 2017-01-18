@@ -62,7 +62,7 @@ angular.module('app')
     }
   }
 
-  $scope.currentTopic = null
+  $scope.currentTopic = null  
   $scope.options = []
 
   $scope.prepareKeywordChallenge = function(exercise){

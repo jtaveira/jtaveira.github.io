@@ -23,6 +23,7 @@
         .question {{exercise.statement}}
 
         md-input-container
+
           md-select(
             ng-model="exercise.selectedAnswer"
             placeholder="Please select"
@@ -55,15 +56,9 @@
         ng-class="{true:'correct', false:'wrong'}[exercise.correct]"
       )  
 
-        .question(
-          ng-if="exercise.helpUsed == false"
-        ) {{exercise.statement}}
-
-        .question(
-          ng-if="exercise.helpUsed == true"
-        ) 
-          p {{exercise.statement}} 
-          p.help  
+        .question(flex="grow")
+          p {{exercise.statement}}
+          p.help(ng-if="exercise.helpUsed")
             i.material-icons help
             | {{exercise.helper}}
 
@@ -71,12 +66,12 @@
           input(
             type="text"
             ng-model="exercise.selectedAnswer"
-            placeholder="Please write a word"
+            placeholder="Write a word"
           )
 
         md-button.md-raised.md-warn(
         ng-click="exercise.helpUsed = true" 
-        ) Get Help
+        ) Help
 
       md-button.md-raised.md-warn(
         ng-click="findTheWordValidate(contentMap)" 
@@ -102,7 +97,7 @@
           ng-init="prepareKeywordChallenge(exercise)"
         ) 
           | {{exercise.statement}} 
-          b {{currentTopic}}
+          b {{exercise.topics[currentTopic].label}}
 
         section.keywordMatrix(layout="row" layout-wrap)
           .keyword(
