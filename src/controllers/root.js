@@ -646,6 +646,10 @@ angular.module('app')
           {
             "title":"4.3.1 Equivalence Partitioning",
             "content":"In equivalence partitioning, inputs to the software or system are divided into groups that are expected to exhibit similar behaviour, so they are likely to be processed in the same way. Equivalence partitions (or classes) can be found for both valid data, i.e., values that should be accepted and invalid data, i.e., values that should be rejected. Partitions can also be identified for outputs, internal values, time-related values (e.g., before or after an event) and for interface parameters (e.g., integrated components being tested during integration testing). Tests can be designed to cover all valid and invalid partitions. Equivalence partitioning is applicable at all levels of testing. <br><br> Equivalence partitioning can be used to achieve input and output coverage goals. It can be applied to human input, input via interfaces to a system, or interface parameters in integration testing. <br><br> Equivalence classes: partitions of the input set in which input data have the same effect on the program (e.g, the result in the same output)."
+          },
+          {
+            "title":"4.3.1 Equivalence Partitioning",
+            "content":"<b> Weak/Strong ECT</b> <br><br> For an example SUT suppose there are three input variables from three domains: A, B, C <br><br> Weak Equivalence Class Testing: Choosing one variable value from each equivalence class <br><br> Strong Equivalence Class Testing: Is based on the Cartesian product of the partition subsets (AxBxC), i.e., testing all interactions of all equivalence classes."
           }
         ],
         "links":[],
@@ -655,7 +659,85 @@ angular.module('app')
       {
         "key":"4.3.2",
         "type":"learningRoom",
-        "name":"",
+        "name":"Boundary value analysis",
+        "contents":[
+          {
+            "title":"4.3.2 Boundary value analysis",
+            "content":"Behaviour at the edge of each equivalence partition is more likely to be incorrect than behaviour within the partition, so boundaries are an area where testing is likely to yield defects. The maximum and minimum values of a partition are its boundary values. A boundary value for a valid partition is a valid boundary value; he boundary of an invalid partition is an invalid boundary value. Testes can be designed to cover both valid and invalid boundary values. When designing test cases, a test for each boundary value is chosen. <br><br> Boundary value analysis can be applied at all levels. It is relatively easy to apply and its defect-finding capability is high. Detailed specifications are helpful in determining the interesting boundaries. <br><br> This technique is often considered as an extension of equivalence partitioning or other black-box test design techniques. It can be used on equivalence classes for user input on screen as well as, for example, on time ranges (e.g., time out, transactional speed requirements) or table ranges (e.g., table size is 256x256)."
+          },
+          {
+            "title":"4.3.2 Boundary value analysis",
+            "content":"In equivalence class testing, we partition input domains into equivalence classes, on the assumption that the behaviour of the program is 'similar' for all input values of an equivalence class, but this assumption may not be true in all cases as some typical programming errors happen to be at the boundary between different equivalence classes. <br><br> This is what boundary value testing focuses on: Simpler but complementary to equivalence class testing. <br><br> In boundary-value analysis (testing) the focus is on the boundary of the input space for identyfing test cases. This rationale is that errors tens to occur near extreme values of input variables. <br><br> So it is necessary to set values for input variable at their minimum, just above the minimum, a nominal value, just below their maximum, and at their maximum. <br><br> Convention for the above notions: <br> min, min+, nom, max-, max+ <br><br> A function with n variables will require 4n+1 test cases. Works well with variables that represent bounded physical quantitites."
+          }
+        ],
+        "challenges":[
+          {
+            "type":"Select the Keywords",
+            "exercises":[
+              {
+                "statement":"Assume a function F, with two variables x1 and x2. Boundaries: a <= x1 <= b, c < x2 < d. Which variables belong to the following values?",
+                "topics" : {
+                  "bv": {
+                    "label": "Boundary values"
+                  },
+                  "nbv": {
+                    "label": "Non Boundary values"
+                  }
+                },
+                "items": [
+                  {
+                    "topic": "bv",
+                    "concept": "x1 < a"
+                  },
+                  {
+                    "topic": "bv",
+                    "concept": "x1 = a"
+                  },
+                  {
+                    "topic": "bv",
+                    "concept": "x1 = b"
+                  },
+                  {
+                    "topic": "bv",
+                    "concept": "x1 > b"
+                  },
+                  {
+                    "topic": "bv",
+                    "concept": "x2 < d"
+                  },
+                  {
+                    "topic": "bv",
+                    "concept": "x2 = d"
+                  },
+                  {
+                    "topic": "bv",
+                    "concept": "x2 > c"
+                  },
+                  {
+                    "topic": "bv",
+                    "concept": "x2 = c"
+                  },
+                  {
+                    "topic": "nbv",
+                    "concept": "x1 > a"
+                  },
+                  {
+                    "topic": "nbv",
+                    "concept": "x1 < b"
+                  },
+                  {
+                    "topic": "nbv",
+                    "concept": "x2 > d"
+                  },
+                  {
+                    "topic": "nbv",
+                    "concept": "x2 < c"
+                  },
+                ]
+              }
+            ]
+          }
+        ],
         "links":[],
         "next": "4.3.3",
         "previous": "4.3.1",
@@ -664,7 +746,25 @@ angular.module('app')
       {
         "key":"4.3.3",
         "type":"learningRoom",
-        "name":"",
+        "name":"Decision Table Testing",
+        "contents":[
+          {
+            "title":"4.3.3 Decision Table Testing",
+            "content":"Decision tables are a good way to capture system requirements that contain logical conditions, and to document internal system design. They may be used to record complex business rules that a system is to implement. When creating decision tables, the specification is analyzed, and conditions and actions of the systems are identified. The input conditions and actions are most often stated in such a way that they must be true or false for all input conditions, and the resulting actions for each combination of conditions. Each column of the table corresponds to a business rule that defines an unique combination of conditions and which result in the execution of the actions associated with that rule. The coverage standard commonly used with decision table testing is to have at least one test per column in the table, which typically involves covering all combinations of triggering conditions. <br><br> The strength of decision table testing is that it creates combinations of conditions that otherwise might not have been exercised during testing. It may be applied to all situations when the action of the software depends on several logical decisions."
+          },
+          {
+            "title":"4.3.3 Decision Table Testing",
+            "content":"<b> Steps to create a decision table </b> <br> <ol><li>List all causes in the decision table</li><li>Calculate the number of possible conditions</li><li>Fill columns will all possible combinations</li><li>Reduce test combinations</li><li>Check covered combinations</li><li>Add effects to the table</li></ol> <br><br> <b> 1. List all causes </b> <br> <ul><li>Write down the values the cause/condition can assume</li><li>Cluster related causes</li><li>Put the most dominating cause first</li><li>Put multi valued causes last</li></ul>"
+          },
+          {
+            "title":"4.3.3 Decision Table Testing",
+            "content":"<b> 2. Calculate combinations </b> <br> <ul><li>If all causes are simply Y/N values: 2^(number of causes)</li><li>If 1 cause with 3 values and 3 with 2: 3^(1) * 2^(3) = 24</li><li>Or, use the values column and multiply each value down the column, eg: 3*2*2*2 = 24</li></ul> <br><br> <b> 3. Fill columns </b> <br> <ul><li>Determine Repeat Factor (RF): divide remaining combinations by the number of possible values for that</li><li>Write RF times the first value, then RF times the next one etc. until row is full</li><li>Next row, go to 1</li></ul> <br><br> <b> 4. Reduce combinations </b> <br> <ul><li>Find indifferent combinations - place a '-'</li><li>Join columns where columns are identical</li><li>Ensure the effects are the same</li></ul>"
+          },
+          {
+            "title":"4.3.3 Decision Table Testing",
+            "content":"<b> 5. Check covered combinations </b> <br> <ul><li>For each columng calculate the combinations it represents</li><li>A '-' represents as many combinations as the cause has</li><li>Multiply for each '-' down the column</li><li>Add up total and compare with step 2</li></ul><b> 6. Add effects to table </b> <br> <ul><li>FRead column by column and determine the effects</li><li>One effect can occur in multiple test combinations</li></ul>"
+          },
+        ],
         "links":[],
         "next": "4.3.4",
         "previous": "4.3.2",
@@ -673,7 +773,13 @@ angular.module('app')
       {
         "key":"4.3.4",
         "type":"learningRoom",
-        "name":"",
+        "name":"State Transition Testing",
+        "contents":[
+          {
+            "title":"4.3.4 State Transition Testing",
+            "content":"A system may exhibit a different response depending on current conditions or previous history (its state). In this case, that aspect of the system can be shown with a state transition diagram. It allows the tester to view the software in term of its states, transitions between states, the inputs or events that trigger state changes (transitions) and the actions which may result from those transitions. The states of the system or object under test are separate, identifiable and finite in number. <br><br> A state table shows the relationship between the states and inputs, and can highlight possible transitions that are invalid. <br><br> Tests can be designed to cover a typical sequence of states, to cover every state, to exercise every transition, to exercise specific sequences of transitions or to test invalid transitions. <br><br> State transition testing is much used within the embedded software industry and technical automation in general. However, the technique is also suitable for modeling a business object having specific states or testing screen-dialogue flows (e.g., for internet applications or business scenarios)."
+          }
+        ],
         "links":[],
         "next": "4.3.5",
         "previous": "4.3.3",
@@ -682,7 +788,57 @@ angular.module('app')
       {
         "key":"4.3.5",
         "type":"learningRoom",
-        "name":"",
+        "name":"Use Case Testing",
+        "contents":[
+          {
+            "title":"4.3.5 Use Case Testing",
+            "content":"Tests can be derived from use cases. A use case describes interactions between actors (users or systems), which produce a result of value to a system user or the customer. Use cases may be described at the abstract level (business use case, technology-free, business process level) or at the system level (system use case on the system functionality level). Each use case has preconditions which need to be met for the use case to work successfully. Each use case terminates with postconditions which are the observable results and final state of the system after the use case has been completed. A use case usually has a mainstream (i.e., most likely) scenario and alternative scenarios. <br><br> Use cases describe the 'process flows' through a system based on its actual likely use, so the test cases derived form use cases are most useful in uncovering defect in the process flows during real-world use of the system. Use cases are very useful for acceptance tests with customer/user participation. They also help uncover integration defects caused by the interaction and interference of different components, which individual component testing would not see. Designing test cases from use cases may be combined with other specification-based test techniques."
+          }
+        ],
+        "challenges":[
+          {
+            "type":"Select the Keywords",
+            "exercises":[
+              {
+                "statement":"In a system where it's possible to execute the following actions: Maintain System, Subscribe to Network, Unsubscribe from Network, Remove User From Network, Place Call, Answer Call. Which should be executed from the following user point?",
+                "topics" : {
+                  "a": {
+                    "label": "Admin"
+                  },
+                  "u": {
+                    "label": "User"
+                  }
+                },
+                "items": [
+                  {
+                    "topic": "u",
+                    "concept": "Subscribe to Network"
+                  },
+                  {
+                    "topic": "u",
+                    "concept": "Unsubscribe from Network"
+                  },
+                  {
+                    "topic": "u",
+                    "concept": "Place Call"
+                  },
+                  {
+                    "topic": "u",
+                    "concept": "Answer Call"
+                  },
+                  {
+                    "topic": "a",
+                    "concept": "Maintain System"
+                  },
+                  {
+                    "topic": "a",
+                    "concept": "Remove User From Network"
+                  },
+                ]
+              }
+            ]
+          }
+        ],
         "links":[],
         "previous": "4.3.4",
         "parent": "4.3"
@@ -691,10 +847,105 @@ angular.module('app')
         "key":"4.4",
         "type":"learningRoom",
         "name":"White-box Techniques",
-        "links":[],
+        "learningObjectives":[
+          {
+            "title":"LO 4.4.1",
+            "content":"Describe the concept and value of code coverage. (K2)"
+          },
+          {
+            "title":"LO 4.4.2",
+            "content":"Explain the concepts of statement and decision coverage, and give reasons why these concepts can also be used at test levels other than component testing (e.g., on business procedures at system level). (K2)"
+          },
+          {
+            "title":"LO 4.4.3",
+            "content":"Write test cases from given control flows using statement and decision test design techniques. (K3)"
+          },
+          {
+            "title":"LO 4.4.4",
+            "content":"Assess statement and decision coverage for completeness with respect to defined exit criteria. (K4)"
+          },
+        ],
+        "contents":[
+          {
+            "title":"4.4 White-box Techniques",
+            "content":"Structure-based or white-box testing is based on an identified structure of the software or the system, as seen in the following examples: <br> <ul><li>Component level: the structure of a software component, i.e., statements, decisions, branches or even distinct paths</li><li>Integration level: the structure may be a call tree (a diagram in which modules call other modules)</li><li>System level: the structure may be a menu structure, business process or web page structure</li></ul> <br><br> In this section, three code-related structural test design techniques for code coverage, based on statements, branches and decisions, are discussed. For decision testing, a control flow diagram may be used to visualize the alternatives for each decision."
+          },
+          {
+            "title":"Differences among statements, decisions and conditions",
+            "content":"<ol><li>PROGRAM sum(maxint, N : INT)</li><li>&nbsp;&nbsp;&nbsp;&nbsp; INT res := 0;</li><li>&nbsp;&nbsp;&nbsp;&nbsp; INT i := 0;</li><li></li><li>&nbsp;&nbsp;&nbsp;&nbsp; IF (N < 0)</li><li>&nbsp;&nbsp;&nbsp;&nbsp; THEN</li><li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; N := -N;</li><li></li><li>&nbsp;&nbsp;&nbsp;&nbsp; WHILE (i < N) AND (res <= maxint)</li><li>&nbsp;&nbsp;&nbsp;&nbsp; DO</li><li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; i := i + 1;</li><li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; res := res + i;</li><li>&nbsp;&nbsp;&nbsp;&nbsp; OD;</li><li></li><li>&nbsp;&nbsp;&nbsp;&nbsp; IF (res <= maxint)</li><li>&nbsp;&nbsp;&nbsp;&nbsp; THEN</li><li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; OUTPUT (res);</li><li>&nbsp;&nbsp;&nbsp;&nbsp; ELSE</li><li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; OUTPUT ('too large');</li><li></li><li>END</li></ol>"
+          },
+          {
+            "title":"Differences among statements, decisions and conditions",
+            "content":"<b>Statements</b> are covered by the following lines: 2, 3, 5, 6, 7, 9, 10, 11, 12, 13, 15, 16, 17, 18, 19 <br><br> <b>Decisions</b> are covered by the following lines: 5, 6, 9, 10, 13, 15, 16, 18 <br><br> <b>Conditions</b> are covered by the following lines: 5, 9, 15"
+          },
+        ],
+        "links":[
+          "4.4.1",
+          "4.4.2",
+          "4.4.3",
+          "4.4.4"
+        ],
         "next": "4.5",
         "previous": "4.3",
         "parent": "4"
+      },
+      {
+        "key":"4.4.1",
+        "type":"learningRoom",
+        "name":"Statement Coverage",
+        "contents":[
+          {
+            "title":"4.4.1 Statement Coverage",
+            "content":"In component testing, statement coverage is the assessment of the percentage of executable statements that have beeen exercised by a test case suite. The statement testing derives test cases to execute specific statements, normally to increase statement coverage. <br><br> Statement coverage is determined by the number of executable statements covered by (designed or executed) test cases divided by the number of all executable statements in the code under test. <br><br> Execute (exercise) every statement of a program. Generate a set of test cases such that each statement of the program is executed at least once."
+          }
+        ],
+        "links":[],
+        "next": "4.4.2",  
+        "parent": "4.4"
+      },
+      {
+        "key":"4.4.2",
+        "type":"learningRoom",
+        "name":"Decision Coverage",
+        "contents":[
+          {
+            "title":"4.4.2 Decision Coverage",
+            "content":"Decision coverage, related to branch testing, is the assessment of the percentage of decision outcomes (e.g., the True and False options of an IF statement) that have been exercised by a test case suite. The decision testing technique derives test cases to execute specific decision outcomes. Branches originate from decision points in the code and show the transfer of control to different locations in the code. <br><br> Decision coverage is determined by the number of all decision outcomes covered by (designed or executed) test cases divided by the number of all possible decision outcomes in the code under test. <br><br> Decision testing is a form of control flow testing as it follows a specific flow of control through the decision points. Decision coverage is stronger than statement coverage; 100% decision coverage guarantees 100% statement coverage, but not vice versa."
+          }
+        ],
+        "links":[],
+        "next": "4.4.3",
+        "previous": "4.4.1",
+        "parent": "4.4"
+      },
+      {
+        "key":"4.4.3",
+        "type":"learningRoom",
+        "name":"Condition Coverage",
+        "contents":[
+          {
+            "title":"4.4.3 Condition Coverage",
+            "content":"Design test cases such that each possible outcome of each condition in a decision (composite condition) occurs at least once. <br><br> <b>Example:</b> <br><br> &nbsp;&nbsp;&nbsp;&nbsp; Decision (i < N) and (result <= maxint) <br> &nbsp;&nbsp;&nbsp;&nbsp; consists of two conditions: (i < N), (result <= maxint) <br><br> Test cases should be designed such that each condition gets value true or false at least once, for example: <br><br> &nbsp;&nbsp;&nbsp;&nbsp; Consider: i = 0, N = 2, result = 1, maxint = 0 <br> &nbsp;&nbsp;&nbsp;&nbsp; In this case, first condition will be true and second one false. The decision will be false. <br><br> &nbsp;&nbsp;&nbsp;&nbsp; Now consider: i = 3, N = 0, result = 1, maxint = 0 <br> &nbsp;&nbsp;&nbsp;&nbsp; In this case, the first one will be false and the second one will be true. The decision will be false. <br><br> &nbsp;&nbsp;&nbsp;&nbsp; Although decision is false in the two test cases, we have tested every condition for true and false."
+          }
+        ],
+        "links":[],
+        "next": "4.4.4",
+        "previous": "4.4.2",
+        "parent": "4.4"
+      },
+      {
+        "key":"4.4.4",
+        "type":"learningRoom",
+        "name":"Path Coverage",
+        "contents":[
+          {
+            "title":"4.4.4 Path Coverage",
+            "content":"Path coverage consists in the execution of every possible path of a program, i.e., every possible sequence of statements. <br><br> Strongest white-box criterion (based on control flow analysis). <br><br> Usually impossible: infinitely many paths (in case of loops). <br><br> So: not a realistic option. <br><br> But note: enormous reduction with respect to all possible test cases (each sequence of statements executed for only one value) (doesn't mean exhaustive testing)."
+          }
+        ],
+        "links":[],
+        "previous": "4.4.3",
+        "parent": "4.4"
       },
       {
         "key":"4.5",
